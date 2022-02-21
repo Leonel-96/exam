@@ -1,7 +1,6 @@
 import time
 import datetime 
 import threading
-from unicodedata import name
 
 stop_thread = False
 global_fifo =[]
