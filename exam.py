@@ -52,5 +52,26 @@ if __name__ == '__main__':
     task_list.append(my_task(name="pump_2", period=15, execution_time=3,last_execution=last_execution,fifo_write=True))
     task_list.append(my_task(name="machine_1", period=5, execution_time=5,last_execution=last_execution))
     task_list.append(my_task(name="machine_2", period=5, execution_time=3,last_execution=last_execution))
+
+    while(1):
+        time_now = datetime.datetime.now()
+
+        print("\nScheduler tick :" + time_now.strftime("%H:%M:%S"))
+
+        task_to_run = None
+        earliest_deadline = time_now + datetime.timedelta(hours=1)
+
+        for current_task in task_list:
+            current_task_next_deadline = current_task.last_execution_time +datetime.timedelta(seconds=current_task.period)
+
+            print("\tDeadline for task " + current_task.name + " : " + current_task_next_deadline.strftime("%H:%M:%S"))
+                    
+            if (current_task_next_deadline < earliest_deadline):
+                earliest_deadline = current_task_next_deadline
+                task_to_run = current_task
+        
+
+        task_to_run.run()
+
             
 
